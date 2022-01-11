@@ -36,7 +36,8 @@ public sealed partial class Trees
     [NotNull]
     private IStringLocalizer<Foo>? Localizer { get; set; }
 
-    private Foo Model => Foo.Generate(Localizer);
+    [NotNull]
+    private Foo? Model { get; set; }
 
     private List<TreeItem> Items { get; set; } = TreeDataFoo.GetTreeItems();
 
@@ -45,7 +46,7 @@ public sealed partial class Trees
     private static List<TreeItem> GetCheckedItems()
     {
         var ret = TreeDataFoo.GetTreeItems();
-        ret[1].Items[1].Checked = true;
+        //ret[1].Items[1].Checked = true;
         return ret;
     }
 
@@ -54,28 +55,38 @@ public sealed partial class Trees
     private static List<TreeItem> GetDisabledItems()
     {
         var ret = TreeDataFoo.GetTreeItems();
-        ret[1].Items[1].IsDisabled = true;
+        //ret[1].Items[1].IsDisabled = true;
         return ret;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Model = Foo.Generate(Localizer);
     }
 
     private static List<TreeItem> GetIconItems()
     {
         var ret = TreeDataFoo.GetTreeItems();
-        ret[1].Items[0].Icon = "fa fa-fa";
-        ret[1].Items[1].Icon = "fa fa-fa";
-        ret[1].Items[2].Icon = "fa fa-fa";
+        //ret[1].Items[0].Icon = "fa fa-fa";
+        //ret[1].Items[1].Icon = "fa fa-fa";
+        //ret[1].Items[2].Icon = "fa fa-fa";
         return ret;
     }
 
     private static List<TreeItem> GetLazyItems()
     {
         var ret = TreeDataFoo.GetTreeItems();
-        ret[1].Items[0].IsExpanded = true;
-        ret[1].Items[1].Text = "懒加载";
-        ret[1].Items[1].HasChildNode = true;
-        ret[1].Items[2].Text = "懒加载延时";
-        ret[1].Items[2].HasChildNode = true;
-        ret[1].Items[2].Key = "Delay";
+        //ret[1].Items[0].IsExpanded = true;
+        //ret[1].Items[1].Text = "懒加载";
+        //ret[1].Items[1].HasChildNode = true;
+        //ret[1].Items[2].Text = "懒加载延时";
+        //ret[1].Items[2].HasChildNode = true;
+        //ret[1].Items[2].Key = "Delay";
 
         return ret;
     }
@@ -90,9 +101,9 @@ public sealed partial class Trees
     private static List<TreeItem> GetColorItems()
     {
         var ret = TreeDataFoo.GetTreeItems();
-        ret[0].CssClass = "text-primary";
-        ret[1].CssClass = "text-success";
-        ret[2].CssClass = "text-danger";
+        //ret[0].CssClass = "text-primary";
+        //ret[1].CssClass = "text-success";
+        //ret[2].CssClass = "text-danger";
         return ret;
     }
 

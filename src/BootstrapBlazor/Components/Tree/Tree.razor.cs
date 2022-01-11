@@ -1,4 +1,4 @@
-// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
@@ -65,11 +65,6 @@ namespace BootstrapBlazor.Components
             .Build();
 
         /// <summary>
-        /// 获得/设置 当前激活的节点实例
-        /// </summary>
-        private TreeItem? ActiveItem { get; set; }
-
-        /// <summary>
         /// 获得/设置 是否为手风琴效果 默认为 false
         /// </summary>
         [Parameter]
@@ -86,6 +81,12 @@ namespace BootstrapBlazor.Components
         /// </summary>
         [Parameter]
         public bool ShowSkeleton { get; set; }
+
+        /// <summary>
+        /// 获得/设置 选中节点 默认 null
+        /// </summary>
+        [Parameter]
+        public TreeItem? ActiveItem { get; set; }
 
         private List<TreeItem>? _items;
         private bool _itemsChanged;
@@ -172,8 +173,15 @@ namespace BootstrapBlazor.Components
         private async Task OnClick(TreeItem item)
         {
             ActiveItem = item;
-            if (ClickToggleNode) await OnExpandRowAsync(item);
-            if (OnTreeItemClick != null) await OnTreeItemClick.Invoke(item);
+            if (ClickToggleNode)
+            {
+                await OnExpandRowAsync(item);
+            }
+
+            if (OnTreeItemClick != null)
+            {
+                await OnTreeItemClick.Invoke(item);
+            }
         }
 
         /// <summary>
@@ -186,7 +194,10 @@ namespace BootstrapBlazor.Components
             {
                 if (Items != null && Items.Contains(item))
                 {
-                    foreach (var rootNode in Items.Where(p => p.IsExpanded && p != item)) rootNode.IsExpanded = false;
+                    foreach (var rootNode in Items.Where(p => p.IsExpanded && p != item))
+                    {
+                        rootNode.IsExpanded = false;
+                    }
                 }
                 else
                 {
@@ -211,7 +222,10 @@ namespace BootstrapBlazor.Components
             // 向下级联操作
             item.CascadeSetCheck(item.Checked);
 
-            if (OnTreeItemChecked != null) await OnTreeItemChecked.Invoke(item);
+            if (OnTreeItemChecked != null)
+            {
+                await OnTreeItemChecked.Invoke(item);
+            }
         }
     }
 }
