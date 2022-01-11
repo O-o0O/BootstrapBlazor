@@ -1,0 +1,72 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapComponentBase
+@using System.Linq.Expressions;
+@typeparam TValue
+
+
+<Tree ShowCheckbox="false" Items="Items" @ref="tree" Value="Value" 
+      OnTreeItemClick="@OnTreeItemClick" />
+
+@code {
+
+    [Parameter]
+    public TValue Value { get; set; }
+    [Parameter]
+    public List<TreeItem> Items { get; set; }
+    [Parameter]
+    public EventCallback<TValue> ValueChanged { get; set; }
+    [Parameter]
+    public Expression<Func<TValue>> ValueExpression { get; set; }
+    [Parameter]
+    public bool showCheckBox { get; set; }
+
+    private Tree tree { get; set; }
+
+
+    protected TValue CurrentValue
+    {
+        get => Value;
+        set
+        {
+            var hasChanged = !EqualityComparer<TValue>.Default.Equals(value, Value);
+            if (hasChanged)
+            {
+                Value = value;
+                _ = ValueChanged.InvokeAsync(value);
+            }
+        }
+    }
+    //private Task OnTreeItemChecked(List<TreeItem> items)
+    //{
+    //    if (typeof(TValue).IsList())
+    //    {
+    //        CurrentValue = (TValue)(object)items.Select(x => new Guid(x.Key?.ToString()))?.ToList();
+    //        //CurrentValue = (TValue)(object)items.Select(x => x.Key.ToString())?.ToList();
+    //        //CurrentValue = (TValue)PropertyHelper.MakeList(typeof(TValue).GetGenericArguments()[0], "FileId", files.Select(x => x.Key).ToArray());
+    //    }
+
+
+    //    return Task.CompletedTask;
+    //}
+
+    //public  object MakeList(Type innerType, string propertyName, object[] values)
+    //{
+    //    object rv = typeof(List<>).MakeGenericType(innerType).GetConstructor(Type.EmptyTypes).Invoke(null);
+    //    var mi = rv.GetType().GetMethod("Add");
+    //    var con = innerType.GetConstructor(Type.EmptyTypes);
+    //    foreach (var item in values)
+    //    {
+    //        var newobj = con.Invoke(null);
+    //        newobj.SetPropertyValue(propertyName, item);
+    //        mi.Invoke(rv, new object[] { newobj });
+    //    }
+    //    return rv;
+    //}
+
+    private Task OnTreeItemClick(TreeItem item)
+    {
+            CurrentValue = (TValue)item.Key;
+        return Task.CompletedTask;
+    }
+
+}
