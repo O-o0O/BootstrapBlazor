@@ -1739,7 +1739,8 @@
     "WasmError": "Wasm 模式未实现保存代码",
     "SaveFile": "保存文件",
     "SaveFileMsg": "当前模式为 WebAssembly 模式，请调用 Webapi 模式保存文件到服务器端或数据库中",
-    "RemoveMsg": "成功移除"
+    "RemoveMsg": "成功移除",
+    "Reset": "重置上传列表方法"
   },
   "BootstrapBlazor.Shared.Samples.ValidateForms": {
     "ChangeButtonText": "更改组件",

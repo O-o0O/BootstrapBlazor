@@ -1737,7 +1737,8 @@
     "WasmError": "Wasm mode does not implement saving code",
     "SaveFile": "Save the file",
     "SaveFileMsg": "The current mode is WebAssembly, call Webapi mode to save files to the server side or database",
-    "RemoveMsg": "The removal was successful"
+    "RemoveMsg": "The removal was successful",
+    "Reset": "Reset the upload files"
   },
   "BootstrapBlazor.Shared.Samples.ValidateForms": {
     "ChangeButtonText": "Change",
