@@ -919,6 +919,16 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         {
             builder.AddContent(0, col.Template.Invoke(item));
         }
+        else if (col.ComponentType == typeof(ColorPicker))
+        {
+            // 自动化处理 ColorPicker 组件
+            var val = GetItemValue(col.GetFieldName(), item);
+            builder.OpenComponent(0, typeof(ColorPicker));
+            builder.AddAttribute(1, "Value", val);
+            builder.AddAttribute(2, "IsDisabled", true);
+            builder.CloseComponent();
+            return;
+        }
         else
         {
             var content = "";
