@@ -923,12 +923,12 @@ public partial class Table<TItem> : BootstrapComponentBase, IDisposable, ITable 
         {
             // 自动化处理 ColorPicker 组件
             var val = GetItemValue(col.GetFieldName(), item);
-            builder.OpenComponent(0, typeof(ColorPicker));
-            builder.AddAttribute(1, "Value", val);
-            builder.AddAttribute(2, "IsDisabled", true);
-            builder.AddAttribute(3, "IsShowColorTextLabel", false);
-            builder.CloseComponent();
-            return;
+            var v = val?.ToString() ?? "#000";
+            var style = string.IsNullOrEmpty(v) ? null : $"background-color: {v};";
+            builder.OpenElement(0, "div");
+            builder.AddAttribute(1, "class", "is-color");
+            builder.AddAttribute(2, "style", style);
+            builder.CloseElement();
         }
         else
         {
